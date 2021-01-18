@@ -1,6 +1,6 @@
 create database yurt_otomasyon_projem
 use yurt_otomasyon_projem
-drop table kızogr
+
 
 create table erkekogr(
 Ad varchar(25),
@@ -8,57 +8,56 @@ Soyad varchar(25),
 Oda_No char(10),
 Tc varchar(11),
 Tel_No varchar(15),
-Doğum_Tarihi int,
-Yaşı int,
-Bölüm varchar(30),
+DoÃ°um_Tarihi int,
+YaÃ¾Ã½ int,
+BÃ¶lÃ¼m varchar(30),
 Mail varchar(40),
 Adres varchar(100))
 
 select Oda_No from Oda where Oda_Kapasite != Oda_Aktif
 
-truncate Oda_No table ErkekOda
 
 update ErkekOda set Oda_Aktif=Oda_Aktif+1 where Oda_No
 
-create table kızogr(
+create table kÃ½zogr(
 Ad varchar(25),
 Soyad varchar(25),
 Oda_No char(10),
 Tc varchar(11),
 Tel_No varchar(15),
-Doğum_Tarihi int,
-Yaşı int,
-Bölüm varchar(30),
+DoÃ°um_Tarihi int,
+YaÃ¾Ã½ int,
+BÃ¶lÃ¼m varchar(30),
 Mail varchar(40),
 Adres varchar(100))
 
-create table erkekvel(Öğrenci_Adı varchar(25),
+create table erkekvel(Ã–Ã°renci_AdÃ½ varchar(25),
 Ad varchar(25),
 Soyad varchar(25),
 Tel_No varchar(15),
 Tc varchar(20),
-Doğum_Tarihi int,
+DoÃ°um_Tarihi int,
 Adres varchar(200))
 
-create table kızvel(
-Öğrenci_Adı varchar(25),
+create table kÃ½zvel(
+Ã–Ã°renci_AdÃ½ varchar(25),
 Ad varchar(25),
 Soyad varchar(25),
 Tel_No varchar(15),
 Tc varchar(20),
-Doğum_Tarihi int,
+DoÃ°um_Tarihi int,
 Adres varchar(200))
 
-create table erkeködeme(
-Öğrenci_İd varchar(2),
-Öğrenci_Adı varchar(25),
-Ödenmesi_Gereken varchar(30),
-Ödenen int,
-Ödenen_Ay varchar(25),
-Kalan_Borç int)
+create table erkekÃ¶deme(
+Ã–Ã°renci_Ãd varchar(2),
+Ã–Ã°renci_AdÃ½ varchar(25),
+Ã–denmesi_Gereken varchar(30),
+Ã–denen int,
+Ã–denen_Ay varchar(25),
+Kalan_BorÃ§ int)
 
 create table ErkekOda(
-Oda_İd int,
+Oda_Ãd int,
 Oda_No char(2),
 Oda_Kapasite char(1),
 Oda_Aktif int default 0,
@@ -91,7 +90,7 @@ insert into ErkekOda values(24,24,5,0,1)
 insert into ErkekOda values(25,25,5,0,1)
 
 create table Oda(
-Oda_İd int,
+Oda_Ãd int,
 Oda_No char(2),
 Oda_Kapasite char(1),
 Oda_Aktif int default 0,
@@ -123,29 +122,27 @@ insert into Oda values(23,23,5,0,1)
 insert into Oda values(24,24,5,0,1)
 insert into Oda values(25,25,5,0,1)
 
-create table kızödeme(
-Öğrenci_İd varchar(2),
-Öğrenci_Adı varchar(25),
-Ödenmesi_Gereken varchar(30),
-Ödenen int,
-Ödenen_Ay varchar(25),
-Kalan_Borç int)
+create table kÃ½zÃ¶deme(
+Ã–Ã°renci_Ãd varchar(2),
+Ã–Ã°renci_AdÃ½ varchar(25),
+Ã–denmesi_Gereken varchar(30),
+Ã–denen int,
+Ã–denen_Ay varchar(25),
+Kalan_BorÃ§ int)
 
-select*from kızödeme
 
-create table silinenmüşteriler(
+create table silinenmÃ¼Ã¾teriler(
 Ad varchar(25),
 Soyad varchar(25),
 Oda_No char(10),
 Tc varchar(11),
 Tel_No varchar(15),
-Doğum_Tarihi int,
-Yaşı int,
-Bölüm varchar(30),
+DoÃ°um_Tarihi int,
+YaÃ¾Ã½ int,
+BÃ¶lÃ¼m varchar(30),
 Mail varchar(40),
 Adres varchar(100))
 
-drop trigger silinenmusteri
 
 create trigger silinenmusteri 
 on erkekogr
@@ -169,32 +166,28 @@ select @soyad=Soyad from deleted
 select @odano=Oda_No from deleted
 select @tc=Tc from deleted
 select @telno=Tel_No from deleted
-select @dogum=Doğum_Tarihi from deleted
-select @yas=Yaşı from deleted
-select @bolum=Bölüm from deleted
+select @dogum=DoÃ°um_Tarihi from deleted
+select @yas=YaÃ¾Ã½ from deleted
+select @bolum=BÃ¶lÃ¼m from deleted
 select @mail=Mail from deleted
 select @adres=Adres from deleted
-insert into silinenmüşteriler values (@ad,@soyad,@odano,@tc,@telno,@dogum,@yas,@bolum,@mail,@adres) 
+insert into silinenmÃ¼Ã¾teriler values (@ad,@soyad,@odano,@tc,@telno,@dogum,@yas,@bolum,@mail,@adres) 
 end
-drop trigger silinenmusteri
-delete from erkekogr where Ad='Selim'
-drop table silinenmüşteriler
-select*from silinenmüşteriler
-select*from erkekogr
 
-create table silinenmüşteriler1(
+
+create table silinenmÃ¼Ã¾teriler1(
 Ad varchar(25),
 Soyad varchar(25),
 Tc varchar(11),
 Tel_No varchar(15),
-Doğum_Tarihi int,
-Yaşı int,
-Bölüm varchar(30),
+DoÃ°um_Tarihi int,
+YaÃ¾Ã½ int,
+BÃ¶lÃ¼m varchar(30),
 Mail varchar(40),
 Adres varchar(100))
 
 create trigger silinenmusteri1
-on kızogr
+on kÃ½zogr
 after delete
 as
 begin
@@ -208,37 +201,29 @@ declare @bolum varchar(20)
 declare @mail varchar(20)
 declare @adres varchar(100)
 
-
 select @ad=Ad from deleted
 select @soyad=Soyad from deleted
 select @tc=Tc from deleted
 select @telno=Tel_No from deleted
-select @dogum=Doğum_Tarihi from deleted
-select @yas=Yaşı from deleted
-select @bolum=Bölüm from deleted
+select @dogum=DoÃ°um_Tarihi from deleted
+select @yas=YaÃ¾Ã½ from deleted
+select @bolum=BÃ¶lÃ¼m from deleted
 select @mail=Mail from deleted
 select @adres=Adres from deleted
-insert into silinenmüşteriler1 values (@ad,@soyad,@tc,@telno,@dogum,@yas,@bolum,@mail,@adres) 
+insert into silinenmÃ¼Ã¾teriler1 values (@ad,@soyad,@tc,@telno,@dogum,@yas,@bolum,@mail,@adres) 
 end
 
-delete from kızogr where Ad='Selim'
-
-
-
 create table gider(
-Fatura_İd int,
+Fatura_Ãd int,
 Elektrik int,
 Su int, 
 Dogalgaz int,
-İnternet int,
-Gıda int, 
-Personel_Maaş int,
-Diğer int,
+Ãnternet int,
+GÃ½da int, 
+Personel_MaaÃ¾ int,
+DiÃ°er int,
 Tutar int)
 
-drop table gider
-
-select*from Oda
 
 create table yenieklenen(
 Ad varchar(10),
