@@ -1,0 +1,254 @@
+create database yurt_otomasyon_projem
+use yurt_otomasyon_projem
+drop table kýzogr
+
+create table erkekogr(
+Ad varchar(25),
+Soyad varchar(25),
+Oda_No char(10),
+Tc varchar(11),
+Tel_No varchar(15),
+Doðum_Tarihi int,
+Yaþý int,
+Bölüm varchar(30),
+Mail varchar(40),
+Adres varchar(100))
+
+select Oda_No from Oda where Oda_Kapasite != Oda_Aktif
+
+truncate Oda_No table ErkekOda
+
+update ErkekOda set Oda_Aktif=Oda_Aktif+1 where Oda_No
+
+create table kýzogr(
+Ad varchar(25),
+Soyad varchar(25),
+Oda_No char(10),
+Tc varchar(11),
+Tel_No varchar(15),
+Doðum_Tarihi int,
+Yaþý int,
+Bölüm varchar(30),
+Mail varchar(40),
+Adres varchar(100))
+
+create table erkekvel(Öðrenci_Adý varchar(25),
+Ad varchar(25),
+Soyad varchar(25),
+Tel_No varchar(15),
+Tc varchar(20),
+Doðum_Tarihi int,
+Adres varchar(200))
+
+create table kýzvel(
+Öðrenci_Adý varchar(25),
+Ad varchar(25),
+Soyad varchar(25),
+Tel_No varchar(15),
+Tc varchar(20),
+Doðum_Tarihi int,
+Adres varchar(200))
+
+create table erkeködeme(
+Öðrenci_Ýd varchar(2),
+Öðrenci_Adý varchar(25),
+Ödenmesi_Gereken varchar(30),
+Ödenen int,
+Ödenen_Ay varchar(25),
+Kalan_Borç int)
+
+create table ErkekOda(
+Oda_Ýd int,
+Oda_No char(2),
+Oda_Kapasite char(1),
+Oda_Aktif int default 0,
+Oda_Durum bit default 1)
+
+insert into ErkekOda values(1,1,1,0,1)
+insert into ErkekOda values(2,2,1,0,1)
+insert into ErkekOda values(3,3,1,0,1)
+insert into ErkekOda values(4,4,1,0,1)
+insert into ErkekOda values(5,5,1,0,1)
+insert into ErkekOda values(6,6,2,0,1)
+insert into ErkekOda values(7,7,2,0,1)
+insert into ErkekOda values(8,8,2,0,1)
+insert into ErkekOda values(9,9,2,0,1)
+insert into ErkekOda values(10,10,2,0,1)
+insert into ErkekOda values(11,11,3,0,1)
+insert into ErkekOda values(12,12,3,0,1)
+insert into ErkekOda values(13,13,3,0,1)
+insert into ErkekOda values(14,14,3,0,1)
+insert into ErkekOda values(15,15,3,0,1)
+insert into ErkekOda values(16,16,4,0,1)
+insert into ErkekOda values(17,17,4,0,1)
+insert into ErkekOda values(18,18,4,0,1)
+insert into ErkekOda values(19,19,4,0,1)
+insert into ErkekOda values(20,20,4,0,1)
+insert into ErkekOda values(21,21,5,0,1)
+insert into ErkekOda values(22,22,5,0,1)
+insert into ErkekOda values(23,23,5,0,1)
+insert into ErkekOda values(24,24,5,0,1)
+insert into ErkekOda values(25,25,5,0,1)
+
+create table Oda(
+Oda_Ýd int,
+Oda_No char(2),
+Oda_Kapasite char(1),
+Oda_Aktif int default 0,
+Oda_Durum bit default 1)
+
+insert into Oda values(1,1,1,0,1)
+insert into Oda values(2,2,1,0,1)
+insert into Oda values(3,3,1,0,1)
+insert into Oda values(4,4,1,0,1)
+insert into Oda values(5,5,1,0,1)
+insert into Oda values(6,6,2,0,1)
+insert into Oda values(7,7,2,0,1)
+insert into Oda values(8,8,2,0,1)
+insert into Oda values(9,9,2,0,1)
+insert into Oda values(10,10,2,0,1)
+insert into Oda values(11,11,3,0,1)
+insert into Oda values(12,12,3,0,1)
+insert into Oda values(13,13,3,0,1)
+insert into Oda values(14,14,3,0,1)
+insert into Oda values(15,15,3,0,1)
+insert into Oda values(16,16,4,0,1)
+insert into Oda values(17,17,4,0,1)
+insert into Oda values(18,18,4,0,1)
+insert into Oda values(19,19,4,0,1)
+insert into Oda values(20,20,4,0,1)
+insert into Oda values(21,21,5,0,1)
+insert into Oda values(22,22,5,0,1)
+insert into Oda values(23,23,5,0,1)
+insert into Oda values(24,24,5,0,1)
+insert into Oda values(25,25,5,0,1)
+
+create table kýzödeme(
+Öðrenci_Ýd varchar(2),
+Öðrenci_Adý varchar(25),
+Ödenmesi_Gereken varchar(30),
+Ödenen int,
+Ödenen_Ay varchar(25),
+Kalan_Borç int)
+
+select*from kýzödeme
+
+create table silinenmüþteriler(
+Ad varchar(25),
+Soyad varchar(25),
+Oda_No char(10),
+Tc varchar(11),
+Tel_No varchar(15),
+Doðum_Tarihi int,
+Yaþý int,
+Bölüm varchar(30),
+Mail varchar(40),
+Adres varchar(100))
+
+drop trigger silinenmusteri
+
+create trigger silinenmusteri 
+on erkekogr
+after delete
+as
+begin
+declare @ad varchar(20)
+declare @soyad varchar(20)
+declare @odano char(10)
+declare @tc varchar(20)
+declare @telno varchar(20)
+declare @dogum int
+declare @yas int
+declare @bolum varchar(20)
+declare @mail varchar(20)
+declare @adres varchar(100)
+
+
+select @ad=Ad from deleted
+select @soyad=Soyad from deleted
+select @odano=Oda_No from deleted
+select @tc=Tc from deleted
+select @telno=Tel_No from deleted
+select @dogum=Doðum_Tarihi from deleted
+select @yas=Yaþý from deleted
+select @bolum=Bölüm from deleted
+select @mail=Mail from deleted
+select @adres=Adres from deleted
+insert into silinenmüþteriler values (@ad,@soyad,@odano,@tc,@telno,@dogum,@yas,@bolum,@mail,@adres) 
+end
+drop trigger silinenmusteri
+delete from erkekogr where Ad='Selim'
+drop table silinenmüþteriler
+select*from silinenmüþteriler
+select*from erkekogr
+
+create table silinenmüþteriler1(
+Ad varchar(25),
+Soyad varchar(25),
+Tc varchar(11),
+Tel_No varchar(15),
+Doðum_Tarihi int,
+Yaþý int,
+Bölüm varchar(30),
+Mail varchar(40),
+Adres varchar(100))
+
+create trigger silinenmusteri1
+on kýzogr
+after delete
+as
+begin
+declare @ad varchar(20)
+declare @soyad varchar(20)
+declare @tc varchar(20)
+declare @telno varchar(20)
+declare @dogum int
+declare @yas int
+declare @bolum varchar(20)
+declare @mail varchar(20)
+declare @adres varchar(100)
+
+
+select @ad=Ad from deleted
+select @soyad=Soyad from deleted
+select @tc=Tc from deleted
+select @telno=Tel_No from deleted
+select @dogum=Doðum_Tarihi from deleted
+select @yas=Yaþý from deleted
+select @bolum=Bölüm from deleted
+select @mail=Mail from deleted
+select @adres=Adres from deleted
+insert into silinenmüþteriler1 values (@ad,@soyad,@tc,@telno,@dogum,@yas,@bolum,@mail,@adres) 
+end
+
+delete from kýzogr where Ad='Selim'
+
+
+
+create table gider(
+Fatura_Ýd int,
+Elektrik int,
+Su int, 
+Dogalgaz int,
+Ýnternet int,
+Gýda int, 
+Personel_Maaþ int,
+Diðer int,
+Tutar int)
+
+drop table gider
+
+select*from Oda
+
+create table yenieklenen(
+Ad varchar(10),
+Soyad varchar(20),
+tc varchar(15),
+telno varchar(20),
+dogumtar int,
+yas int,
+bolum varchar (14),
+mail varchar(50),
+adres varchar (50)) 
+
+
