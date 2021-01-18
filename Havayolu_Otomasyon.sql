@@ -115,10 +115,7 @@ primary key(Yolcu_Ucus_İd)
 alter table Ucak add constraint  fk_ucakmarka_key foreign key (Ucak_Marka) references Ucak_Marka(Marka_Id);
 alter table Ucak add constraint  fk_ucakmodel_key foreign key (Ucak_Model) references Ucak_Model(Model_Id);
 
-
 alter table Havalimani add constraint fk_sehir_key foreign key (Havalimani_Sehir_Id) references Sehir(Sehir_Id);
-
-
 
 alter table Ucus_Bilgi add constraint fk_pilot_key foreign key (Pilot_İd) references Pilot(Pilot_Id);
 alter table Ucus_Bilgi add constraint fk_ucak_key foreign key (Ucak_İd) references Ucak(Ucak_Id);
@@ -133,7 +130,6 @@ alter table Ucus_Yolcu add constraint fk_ucak2_key foreign key (Ucus_İd) refere
 SET SQL_SAFE_UPDATES=0;
 update Ucak set Ucak_Kapasite=100 where Ucak_Durum=true;
 
-select * from ucak; 
 
 -- Bagajı olan ve kapı numarası 108A olan uçuştaki yolcuların ad ve soyadı bilgilerini getirin.
 
@@ -181,7 +177,6 @@ select s.Sehir_Adi,count(Havalimani_Sehir_Id) as Havalimani_Sayisi from Havalima
 inner join Sehir s on h.Havalimani_Sehir_Id=s.Sehir_İd
 group by Havalimani_Sehir_Id;
 
--- SAYFA 2 --
 -- Ankara’ya gerçekleştirilen uçuşların listesi.
 
 -- İnner Join 
@@ -228,5 +223,3 @@ SELECT * FROM pilot p
 inner join ucus_bilgi ub on p.pilot_id=ub.pilot_id
 where ub.tarih between '2021-01-02' and '2021-01-21' GROUP BY Pilot_Telefon HAVING (COUNT(Pilot_Telefon) > 0) ORDER BY COUNT(*) DESC limit 1;
 
-select* from Ucak;
-select*from Ucus_Bilgi;
